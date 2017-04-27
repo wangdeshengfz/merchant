@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+ 	<!-- 使用zookeeper注册中心暴露服务地址  配置格式 192.168.140.120:2181-->
+ 	 <!-- <dubbo:registry id="baseDubboAddr" protocol="zookeeper" address="${dubbo.consumer.baseDubboAddr}" default="false"/> -->
+ 	 <!-- 本地环境，上开发环境时请注释掉-->
+	<!--  	 <dubbo:registry id="localDubboAddr" protocol="zookeeper" address="127.0.0.1:2181" default="false"/> -->
+	<!-- base服务 -->
+<!-- 	<dubbo:reference id="idWorkerService"  interface="com.cagtc.base.webservice.IdWorkerService" registry="baseDubboAddr" timeout="5000" retries="0"></dubbo:reference>
+	    <dubbo:reference id="homeGiveGoodsService" interface="com.cagtc.goods.dubboservice.IHomeGiveGoodsService" 
+	    check="false" registry="baseDubboAddr" timeout="5000" retries="0"></dubbo:reference> -->
+</beans>

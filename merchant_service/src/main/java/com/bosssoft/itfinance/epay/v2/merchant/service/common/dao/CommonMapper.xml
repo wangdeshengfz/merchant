@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="homeGive_common_mapper" > 
+
+<!-- 查询条件（WhereClause类对象）  -->
+<sql id="Query_Where_Clause">
+<if test="whereClause != null and whereClause.clauses != null and whereClause.clauses.size > 0 ">
+where 
+<trim  suffixOverrides="," >
+	<foreach item="item" index="index" collection="whereClause.clauses" open="" separator=" and " close="">
+		<if test="item.operator=='eq'">
+			<if test="item.propertyValue == null">
+				${item.propertyName} is null
+			</if>
+			<if test="item.propertyValue != null">
+				${item.propertyName} = #{item.propertyValue}
+			</if>
+		</if>
+		<if test="item.operator=='ne'">
+			<if test="item.propertyValue == null">
+				${item.propertyName} is not null
+			</if>
+			<if test="item.propertyValue != null">
+				${item.propertyName} &lt;&gt; #{item.propertyValue}
+			</if>
+		</if>
+		<if test="item.operator=='lt'">
+			${item.propertyName} &lt; #{item.propertyValue}
+		</if>
+		<if test="item.operator=='le'">
+			${item.propertyName} &lt;= #{item.propertyValue}
+		</if>
+		<if test="item.operator=='gt'">
+			${item.propertyName} &gt; #{item.propertyValue}
+		</if>
+		<if test="item.operator=='ge'">
+			${item.propertyName} &gt;= #{item.propertyValue}
+		</if>
+		<if test="item.operator=='like'">
+			${item.propertyName} like ('%${item.propertyValue}%')
+		</if>
+		<if test="item.operator=='llike'">
+			${item.propertyName} like ('%${item.propertyValue}%')
+		</if>
+		<if test="item.operator=='rlike'">
+			${item.propertyName} like ('%${item.propertyValue}')
+		</if>
+		<if test="item.operator=='nlike'">
+			${item.propertyName} not like ('%${item.propertyValue}%')
+		</if>
+		<if test="item.operator=='between'">
+			(${item.propertyName} between #{item.propertyValue[0]} and #{item.propertyValue[1]})
+		</if>
+		<if test="item.operator=='in'">
+			${item.propertyName} in
+			<foreach item="subitem" index="subindex" collection="item.propertyValue" open="(" separator="," close=")">
+			#{subitem}
+			</foreach>
+		</if>
+		<if test="item.operator=='nin'">
+			${item.propertyName} not in
+			<foreach item="subitem" index="subindex" collection="item.propertyValue" open="(" separator="," close=")">
+			#{subitem}
+			</foreach>
+		</if>
+	</foreach>
+</trim>
+</if>
+</sql>
+
+<!-- 排序语句（OrderClause类对象）  -->
+<sql id="Query_Order_Clause">
+<if test="orderClause != null and orderClause.clauses != null and orderClause.clauses.size > 0 ">
+order by 
+<trim  suffixOverrides="," >
+	<foreach item="item" index="index" collection="orderClause.clauses" open="" separator="," close="">
+		${item.propertyName} ${item.orderType}
+	</foreach>
+</trim>
+</if>
+</sql>
+
+</mapper>

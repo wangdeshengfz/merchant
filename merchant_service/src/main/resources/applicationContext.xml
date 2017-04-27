@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop.xsd 
+	http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd">
+    
+    <bean id="springUtil" class="com.bosssoft.itfinance.epay.v2.merchant.common.util.SpringUtils" />
+	<aop:aspectj-autoproxy />
+	<!-- 让Spring通过自动扫描来查询和管理Bean -->
+	<context:component-scan base-package="com.test">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Service" />
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	<context:component-scan base-package="com.bosssoft.itfinance.epay.v2.merchant">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Service" />
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+	
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:merchant-config.properties</value>
+			</list>
+		</property>
+		<property name="fileEncoding" value="UTF-8"></property>
+	</bean>
+
+	<bean id="jedisPoolUtil" class="com.bosssoft.itfinance.epay.v2.merchant.common.util.JedisPoolUtil"
+		destroy-method="destroy">
+		<constructor-arg>
+			<value>${redis.host}</value>
+		</constructor-arg>
+		<constructor-arg>
+			<value>${redis.port}</value>
+		</constructor-arg>
+		<constructor-arg>
+			<value>${redis.maxIdle}</value>
+		</constructor-arg>
+		<constructor-arg>
+			<value>${redis.maxTotal}</value>
+		</constructor-arg>
+		<constructor-arg>
+			<value>true</value>
+		</constructor-arg>
+		<constructor-arg>
+			<value>100000</value>
+		</constructor-arg>
+	</bean>
+
+	<!-- 让Spring通过自动扫描来查询和管理Bean -->
+	<context:component-scan base-package="com.test">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Service" />
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	<context:component-scan base-package="com.bosssoft.itfinance.epay.v2.cashierdesk">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Service" />
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+    
+	<!-- 引入其他配置文件 -->
+	<import resource="mybatis/application-database.xml" />
+
+</beans>

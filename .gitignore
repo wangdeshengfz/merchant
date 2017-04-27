@@ -1,0 +1,15 @@
+.settings/
+target/
+.classpath
+.project
+.tern-project
+merchant_api/.settings/
+merchant_api/target/
+merchant_api/.classpath
+merchant_api/.project
+merchant_api/.tern-project
+merchant_service/.settings/
+merchant_service/target/
+merchant_service/.classpath
+merchant_service/.project
+merchant_service/.tern-project
